@@ -54,67 +54,63 @@ function TedoList(props: { store: ITedoDetailStore }): any {
           s.updateTedo(finalValues);
         }}
       >
-        {(): any => {
-          return (
-            <Form layout="vertical" {...formItemLayout}>
-              <FlexView grow vAlignContent="center">
-                <FlexView>
-                  <h1>{s.tedo.slug}</h1>
-                </FlexView>
-                <FlexView marginLeft="auto">
-                  <Form.Item name="_" {...tailFormItemLayout}>
-                    <SubmitButton loading={false} disabled={false}>
-                      Save
-                    </SubmitButton>
-                  </Form.Item>
-                </FlexView>
-              </FlexView>
-              {/* <Form.Item key={'slug'} name={'slug'} label={'Slug'}>
+        <Form layout="vertical" {...formItemLayout}>
+          <FlexView grow vAlignContent="center">
+            <FlexView>
+              <h1>{s.tedo.slug}</h1>
+            </FlexView>
+            <FlexView marginLeft="auto">
+              <Form.Item name="_" {...tailFormItemLayout}>
+                <SubmitButton loading={false} disabled={false}>
+                  Save
+                </SubmitButton>
+              </Form.Item>
+            </FlexView>
+          </FlexView>
+          {/* <Form.Item key={'slug'} name={'slug'} label={'Slug'}>
                 <Input name={'slug'} />
               </Form.Item> */}
-              <Form.Item
-                key={'description'}
-                name={'description'}
-                label={'Description'}
-              >
-                <TextArea name={'description'} />
-              </Form.Item>
-              {/* <Form.Item key={'type'} name={'type'} label={'Type'}>
+          <Form.Item
+            key={'description'}
+            name={'description'}
+            label={'Description'}
+          >
+            <TextArea name={'description'} />
+          </Form.Item>
+          {/* <Form.Item key={'type'} name={'type'} label={'Type'}>
                 <Input name={'type'} />
               </Form.Item> */}
-              <Form.Item
-                key={'renderFunction'}
-                name={'renderFunction'}
-                label={'Render Function'}
-              >
-                <Input name={'renderFunction'} />
+          <Form.Item
+            key={'renderFunction'}
+            name={'renderFunction'}
+            label={'Render Function'}
+          >
+            <Input name={'renderFunction'} />
+          </Form.Item>
+          <Tabs animated={false}>
+            <TabPane key="template" tab="Template">
+              <Form.Item key={'template'} name={'template'}>
+                <TextArea
+                  name={'template'}
+                  autoSize={{
+                    minRows: 20,
+                  }}
+                />
               </Form.Item>
-              <Tabs animated={false}>
-                <TabPane key="template" tab="Template">
-                  <Form.Item key={'template'} name={'template'}>
-                    <TextArea
-                      name={'template'}
-                      autoSize={{
-                        minRows: 20,
-                      }}
-                    />
-                  </Form.Item>
-                </TabPane>
-                <TabPane key="format" tab="Format">
-                  <Form.Item key={'variablesFormat'} name={'variablesFormat'}>
-                    <TextArea
-                      name={'variablesFormat'}
-                      autoSize={{
-                        minRows: 20,
-                      }}
-                    />
-                  </Form.Item>
-                </TabPane>
-                {/* <TabPane key="samples" tab="Samples"></TabPane> */}
-              </Tabs>
-            </Form>
-          );
-        }}
+            </TabPane>
+            <TabPane key="format" tab="Format">
+              <Form.Item key={'variablesFormat'} name={'variablesFormat'}>
+                <TextArea
+                  name={'variablesFormat'}
+                  autoSize={{
+                    minRows: 20,
+                  }}
+                />
+              </Form.Item>
+            </TabPane>
+            {/* <TabPane key="samples" tab="Samples"></TabPane> */}
+          </Tabs>
+        </Form>
       </Formik>
     </div>
   );

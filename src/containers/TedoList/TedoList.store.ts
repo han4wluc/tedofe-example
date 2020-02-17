@@ -2,11 +2,14 @@ import { action, observable, computed } from 'mobx';
 import { BaseStore, IStoreDependencies } from '~/utils/mobxConnect';
 import TedoService from '~/services/api/TedoService';
 import ResourceStore from '~/stores/ResourceStore';
+import ModalStore from '~/stores/ModalStore';
+import { TedoEventEmitter } from '~/services/emitters/tedoEmitter';
 
 export type Tedo = any;
 
 export interface ITedoListStoreDependencies extends IStoreDependencies {
   tedoService: TedoService;
+  tedoEventEmitter: TedoEventEmitter;
 }
 
 export interface IEntityTableStore {
@@ -16,16 +19,26 @@ export interface IEntityTableStore {
 
 export class TedoListStore extends BaseStore implements IEntityTableStore {
   private tedoService: TedoService;
+  private tedoEventEmitter: TedoEventEmitter;
   @observable public tedoResource: ResourceStore<Tedo>;
+  @observable public modalState: ModalStore<any>;
 
   constructor(protected dependencies: ITedoListStoreDependencies) {
     super(dependencies);
     this.tedoService = dependencies.tedoService;
+    this.tedoEventEmitter = dependencies.tedoEventEmitter;
     this.tedoResource = new ResourceStore<Tedo>([], x => x.id);
+    this.modalState = new ModalStore();
   }
 
   mount(): any {
     this.fetchTedos();
+    const listerner = this.tedoEventEmitter.addOnCreateTedoListener(() => {
+      this.fetchTedos();
+    });
+    return (): void => {
+      listerner.remove();
+    };
   }
 
   @observable tedosLoading: boolean = true;
@@ -43,5 +56,9 @@ export class TedoListStore extends BaseStore implements IEntityTableStore {
       console.warn(error);
     }
     this.tedosLoading = false;
+  };
+
+  @action showCreateTedoModal = (): void => {
+    this.modalState.show(null);
   };
 }

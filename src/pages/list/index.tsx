@@ -6,6 +6,7 @@ import FlexView from 'react-flexview';
 import 'antd/dist/antd.css';
 
 import TedoList from '~/containers/TedoList';
+import CreateTedo from '~/containers/CreateTedo';
 
 const isServer = typeof window === 'undefined';
 // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -20,7 +21,7 @@ export default class Counter extends React.Component<any, any> {
             <h1>Tedos</h1>
           </FlexView>
           <FlexView marginLeft="auto">
-            <Button type="primary">Create Tedo</Button>
+            <CreateTedo />
           </FlexView>
         </FlexView>
         <Divider />
