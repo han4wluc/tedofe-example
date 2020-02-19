@@ -6,6 +6,7 @@ export type Tedo = any;
 
 export interface ITedoDetailStoreDependencies extends IStoreDependencies {
   tedoService: TedoService;
+  tedo?: Tedo;
 }
 
 export interface ITedoDetailStore {
@@ -20,10 +21,7 @@ export class TedoDetailStore extends BaseStore implements ITedoDetailStore {
   constructor(protected dependencies: ITedoDetailStoreDependencies) {
     super(dependencies);
     this.tedoService = dependencies.tedoService;
-  }
-
-  mount(params: any): any {
-    this.fetchTedo(params.router.query.slug);
+    this.tedo = dependencies.tedo;
   }
 
   @observable tedoLoading: boolean = true;

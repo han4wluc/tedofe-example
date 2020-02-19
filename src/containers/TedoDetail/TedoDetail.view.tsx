@@ -35,9 +35,6 @@ const tailFormItemLayout = {
 
 function TedoList(props: { store: ITedoDetailStore }): any {
   const s = props.store;
-  if (s.tedoLoading) {
-    return null;
-  }
   return (
     <div>
       <Formik

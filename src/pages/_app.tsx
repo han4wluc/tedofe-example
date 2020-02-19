@@ -1,30 +1,18 @@
-// import App from 'next/app'
 import React from 'react';
 import { Layout } from 'antd';
 const { Header, Footer, Content } = Layout;
-import FlexView from 'react-flexview';
-import Link from 'next/link';
+import NavigationBar from '~/containers/NavigationBar';
 
-function MyApp({ Component, pageProps }: any): any {
+function MyApp(props: any): any {
+  const { Component, pageProps = {} } = props;
+  const { authToken } = pageProps;
+  const username = authToken;
+  const isLoggedIn = !!username;
+
   return (
     <Layout>
       <Header>
-        <FlexView>
-          <FlexView grow>
-            <Link href="/list">
-              <div style={{ color: 'white' }}>Tedos</div>
-            </Link>
-            <div style={{ color: 'white', marginLeft: 16 }}>Docs</div>
-          </FlexView>
-          <FlexView>
-            <Link href="/signin">
-              <div style={{ color: 'white' }}>Sign In</div>
-            </Link>
-            <Link href="/signup">
-              <div style={{ color: 'white', marginLeft: 16 }}>Sign Up</div>
-            </Link>
-          </FlexView>
-        </FlexView>
+        <NavigationBar username={username} isLoggedIn={isLoggedIn} />
       </Header>
       <Content
         style={{

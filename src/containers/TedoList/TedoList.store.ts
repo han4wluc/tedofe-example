@@ -10,6 +10,8 @@ export type Tedo = any;
 export interface ITedoListStoreDependencies extends IStoreDependencies {
   tedoService: TedoService;
   tedoEventEmitter: TedoEventEmitter;
+  tedos?: any[];
+  isServerRendered?: boolean;
 }
 
 export interface IEntityTableStore {
@@ -27,12 +29,12 @@ export class TedoListStore extends BaseStore implements IEntityTableStore {
     super(dependencies);
     this.tedoService = dependencies.tedoService;
     this.tedoEventEmitter = dependencies.tedoEventEmitter;
-    this.tedoResource = new ResourceStore<Tedo>([], x => x.id);
+    const tedos = dependencies.tedos || [];
+    this.tedoResource = new ResourceStore<Tedo>(tedos, x => x.id);
     this.modalState = new ModalStore();
   }
 
   mount(): any {
-    this.fetchTedos();
     const listerner = this.tedoEventEmitter.addOnCreateTedoListener(() => {
       this.fetchTedos();
     });

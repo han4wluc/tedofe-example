@@ -4,16 +4,13 @@ import { Card } from 'antd';
 import React from 'react';
 import Link from 'next/link';
 import FlexView from 'react-flexview';
+import { ISignUpStore } from './SignUp.store';
 
-function SignUp(): any {
+function SignUp(props: { store: ISignUpStore }): any {
+  const s = props.store;
   return (
     <div>
-      <Formik
-        initialValues={{}}
-        onSubmit={values => {
-          console.warn(values);
-        }}
-      >
+      <Formik initialValues={{}} onSubmit={s.signUp}>
         <Form layout="vertical">
           <h2>Sign Up new account</h2>
           <Card style={{ width: 400 }}>
@@ -27,7 +24,7 @@ function SignUp(): any {
               <Input name={'password'} />
             </Form.Item>
             <FlexView column>
-              <SubmitButton loading={false} disabled={false}>
+              <SubmitButton loading={s.signUpIsLoading} disabled={false}>
                 Sign Up
               </SubmitButton>
             </FlexView>

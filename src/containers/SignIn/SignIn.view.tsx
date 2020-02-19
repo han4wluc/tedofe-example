@@ -4,16 +4,14 @@ import { Card } from 'antd';
 import React from 'react';
 import Link from 'next/link';
 import FlexView from 'react-flexview';
+import { ISignInStore } from './SignIn.store';
 
-function SignIn(): any {
+function SignIn(props: { store: ISignInStore }): any {
+  const s = props.store;
+
   return (
     <div>
-      <Formik
-        initialValues={{}}
-        onSubmit={values => {
-          console.warn(values);
-        }}
-      >
+      <Formik initialValues={{}} onSubmit={s.signIn}>
         <Form layout="vertical">
           <h2>Sign In into Tedo</h2>
           <Card style={{ width: 400 }}>
@@ -24,7 +22,7 @@ function SignIn(): any {
               <Input name={'password'} />
             </Form.Item>
             <FlexView column>
-              <SubmitButton loading={false} disabled={false}>
+              <SubmitButton loading={s.signInIsLoading} disabled={false}>
                 Sign In
               </SubmitButton>
             </FlexView>
